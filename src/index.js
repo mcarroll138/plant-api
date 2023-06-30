@@ -13,7 +13,7 @@ function getCurrency(currency) {
 
 function printError(apiResponse) {
   console.log(apiResponse);
-  document.querySelector('#showResponse').innerText = `There was an error accessing the gif: ${apiResponse.result}`;
+  document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
 }
 
 function printElements(apiResponse) {
@@ -30,3 +30,8 @@ function handleFormSubmission(event) {
 window.addEventListener("load", function () {
   document.querySelector('form').addEventListener("submit", handleFormSubmission);
 });
+
+// function printError(apiResponse) {
+//   console.log(apiResponse);
+//   document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse['error-type']}`;
+// }

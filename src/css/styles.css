@@ -23,3 +23,23 @@ body {
 input {
   width: 15%;
 }
+
+ol {
+  width: 30em;
+  list-style: none;
+  color: white;
+  position: absolute;
+}
+
+ul li {
+  float: left;
+  width: 20em;
+}
+
+br {
+  clear: left;
+}
+
+div.wrapper {
+  margin-bottom: 1em;
+}

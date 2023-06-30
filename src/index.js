@@ -4,7 +4,7 @@ import CurrencyExchange from './currencyAPI.js';
 function getCurrency(currency) {
   let promise = CurrencyExchange.getCurrency(currency);
   promise.then(function (getCurrencyRate) {
-    printElements(getCurrencyRate);
+    printElements(getCurrencyRate, currency);
   }, function (errorArray) {
     printError(errorArray);
   }
@@ -12,13 +12,11 @@ function getCurrency(currency) {
 }
 
 function printError(apiResponse) {
-  console.log(apiResponse);
   document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
 }
 
-function printElements(apiResponse) {
-  console.log(apiResponse);
-  document.querySelector('#showResponse').innerText = `Your exchange ragte is ${apiResponse.conversion_rate}`;
+function printElements(apiResponse, currency) {
+  document.querySelector('#showResponse').innerText = `Your exchange rate from USD to ${currency} is ${apiResponse.conversion_rate}`;
 }
 function handleFormSubmission(event) {
   event.preventDefault();

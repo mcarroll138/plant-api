@@ -1,10 +1,10 @@
 import './css/styles.css';
 import CurrencyExchange from './currencyAPI.js';
 // Business Logic
-function getCurrency(currency) {
+function getCurrency(currency, ammount) {
   let promise = CurrencyExchange.getCurrency(currency);
   promise.then(function (getCurrencyRate) {
-    printElements(getCurrencyRate, currency);
+    printElements(getCurrencyRate, currency, ammount);
   }, function (errorArray) {
     printError(errorArray);
   }
@@ -15,14 +15,17 @@ function printError(apiResponse) {
   document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
 }
 
-function printElements(apiResponse, currency) {
-  document.querySelector('#showResponse').innerText = `Your exchange rate from USD to ${currency} is ${apiResponse.conversion_rate}`;
+function printElements(apiResponse, currency, ammount) {
+  const totalConverted = (ammount * apiResponse.conversion_rate).toFixed(2);
+  document.querySelector('#showResponse').innerText = `Your exchange rate from ${ammount} USD to ${currency} is ${totalConverted}`;
 }
 function handleFormSubmission(event) {
   event.preventDefault();
   const currency = document.querySelector('#currency').value;
   document.querySelector('#currency').value = null;
-  getCurrency(currency);
+  const ammount = document.querySelector('#ammount').value;
+  document.querySelector('#ammount').value = null;
+  getCurrency(currency, ammount);
 }
 
 window.addEventListener("load", function () {

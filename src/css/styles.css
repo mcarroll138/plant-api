@@ -29,11 +29,13 @@ ol {
   list-style: none;
   color: white;
   position: absolute;
+
 }
 
 ul li {
   float: left;
-  width: 20em;
+  width: 15em;
+
 }
 
 br {
@@ -42,4 +44,5 @@ br {
 
 div.wrapper {
   margin-bottom: 1em;
+  display: none;
 }

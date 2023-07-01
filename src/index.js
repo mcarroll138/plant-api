@@ -12,7 +12,13 @@ function getCurrency(currency, amount) {
 }
 
 function printError(apiResponse) {
-  document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
+  if (apiResponse['error-type'] === "invalid-key") {
+    document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
+  } else if (apiResponse['error-type'] === "malformed-request") {
+    document.querySelector('#showResponse').innerText = `The request made was for an unsupported currency. Please check your input or see list of supported currencies.`;
+  } else {
+    document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
+  }
 }
 
 function printElements(apiResponse, currency, amount) {
@@ -20,7 +26,7 @@ function printElements(apiResponse, currency, amount) {
     document.querySelector('#showResponse').innerText = "Please enter a number value"
   } else {
     const totalConverted = (amount * apiResponse.conversion_rate).toFixed(2);
-    document.querySelector('#showResponse').innerText = `Your exchange rate from ${amount} USD to ${currency} is ${totalConverted}`;
+    document.querySelector('#showResponse').innerText = `Your exchange rate from ${amount} USD to ${currency.toUpperCase()} is ${totalConverted}`;
   }
 }
 function handleFormSubmission(event) {

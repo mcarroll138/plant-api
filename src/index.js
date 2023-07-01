@@ -15,7 +15,7 @@ function printError(apiResponse) {
   if (apiResponse['error-type'] === "invalid-key") {
     document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
   } else if (apiResponse['error-type'] === "malformed-request") {
-    document.querySelector('#showResponse').innerText = `The request made was for an unsupported currency. Please check your input or see list of supported currencies.`;
+    document.querySelector('#showResponse').innerHTML = `The request made was for an unsupported currency. Please check your input or see the list of supported <a href="https://en.wikipedia.org/wiki/ISO_4217" target="_blank">currencies</a> .`;
   } else {
     document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
   }
@@ -42,7 +42,3 @@ window.addEventListener("load", function () {
   document.querySelector('form').addEventListener("submit", handleFormSubmission);
 });
 
-// function printError(apiResponse) {
-//   console.log(apiResponse);
-//   document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse['error-type']}`;
-// }

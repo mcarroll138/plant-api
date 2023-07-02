@@ -1,29 +1,44 @@
-# (Application Name)
+# **Currency Exchanger**
 
-#### (Brief Description of Application)
+### By Michael Carroll
 
-#### By (Your Name Here)
+A webpage application where a user can enter the amount of USD to be converted to any of the supported currencies using an API call to exchangerate-api.com for the up to date exchange rate.
 
-## Technologies Used
+Link to GH Page:
+ 
+https://github.com/mcarroll138
 
-* _List all_
-* _the major technologies_
-* _you used in your project_
-* _here_
+## Technologies used 
+- Javascript
+- HTML
+- CSS
+- npm
+- Node.js
+- ESLint
+- Jest
+- Babel
+- Dotenv
+- API Calls
 
-## Description
-
-## Setup/Installation Requirements
-
-* _This is a great place_
-* _to list setup instructions_
-* _in a simple_
-* _easy-to-understand_
-* _format_
+## Complete setup/installation instructions 
+- Clone this repository from github
+- Navigate to the root directory in your terminal and run $ npm install
+- In the root directory, create a file called .env
+- Add .env file to .gitignore
+- commit changes prior to storing any keys
+- Create a free account to access an API token at exchangerate-api.com.
+- Add your token in your .env folder as API_KEY={YOUR API TOKEN}.
+- Run $ npm run start in your root folder
 
 ## Known Bugs
 
-* _Any known issues_
-* _should go here_
-
 ## License
+MIT
+
+Copyright (c) 2023 Michael Carroll
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

@@ -1,10 +1,13 @@
 import './css/styles.css';
-import CurrencyExchange from './currencyAPI.js';
+import MapSearch from './postalCodeAPI.js';
+
 // Business Logic
-function getCurrency(currency, amount) {
-  let promise = CurrencyExchange.getCurrency(currency);
-  promise.then(function (getCurrencyRate) {
-    printElements(getCurrencyRate, currency, amount);
+function postalCodeSearch(city, zipcode) {
+  let promise = MapSearch.postalCodeSearch(city, zipcode);
+  promise.then(function (getLonLat) {
+    printElements(postalCodeSearch, city, zipcode);
+    console.log(getLonLat);
+    console.log(postalCodeSearch);
   }, function (errorArray) {
     printError(errorArray);
   }
@@ -12,30 +15,27 @@ function getCurrency(currency, amount) {
 }
 
 function printError(apiResponse) {
-  if (apiResponse['error-type'] === "invalid-key") {
-    document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
-  } else if (apiResponse['error-type'] === "malformed-request") {
-    document.querySelector('#showResponse').innerHTML = `The request made was for an unsupported currency. Please check your input or see the list of supported <a href="https://en.wikipedia.org/wiki/ISO_4217" target="_blank">currencies</a> .`;
-  } else {
-    document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.result} with ${apiResponse['error-type']}`;
-  }
+  document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.statusDescription} with ${apiResponse.errorDetails}`;
 }
 
-function printElements(apiResponse, currency, amount) {
-  if (isNaN(amount)) {
-    document.querySelector('#showResponse').innerText = "Please enter a number value"
-  } else {
-    const totalConverted = (amount * apiResponse.conversion_rate).toFixed(2);
-    document.querySelector('#showResponse').innerText = `Your exchange rate from ${amount} USD to ${currency.toUpperCase()} is ${totalConverted}`;
-  }
+
+var map = L.map('map').setView([45.512794, -122.679565], 15);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+function printElements(apiResponse, city, zipcode) {
+  document.querySelector('#showResponse').innerText = `Your coordinates for ${city} in the zip code of ${zipcode}  ${apiResponse.resourceSets[0].resources[0].point.coordinates}`;
 }
+
 function handleFormSubmission(event) {
   event.preventDefault();
-  const currency = document.querySelector('#currency').value;
-  document.querySelector('#currency').value = null;
-  const amount = document.querySelector('#amount').value;
-  document.querySelector('#amount').value = null;
-  getCurrency(currency, amount);
+  const city = document.querySelector('#city').value;
+  document.querySelector('#city').value = null;
+  const zipcode = document.querySelector('#zipcode').value;
+  document.querySelector('#zipcode').value = null;
+  getCurrency(city, zipcode);
 }
 
 window.addEventListener("load", function () {

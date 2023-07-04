@@ -1,8 +1,8 @@
-export default class CurrencyExchange {
-  static getCurrency(currency) {
+export default class MapSearch {
+  static postalCodeSearch(city, zipcode) {
     return new Promise(function (resolve, reject) {
       let request = new XMLHttpRequest();
-      const url = `https://v6.exchangerate-api.com/v6/${process.env.API_KEY}/pair/USD/${currency}`;
+      const url = `http://dev.virtualearth.net/REST/v1/Locations?CountryRegion=US&adminDistrict=-&locality=${city}&postalCode=${zipcode}&addressLine=-&key=${process.env.BING_KEY}`;
       request.addEventListener("loadend", function () {
         const response = JSON.parse(this.responseText);
         if (this.status === 200) {

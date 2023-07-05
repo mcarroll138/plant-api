@@ -35,11 +35,10 @@ function printError(apiResponse) {
 
 function printElements(info) {
   console.log(info);
-  for (let i = 0; i < info.length; i++) {
-    document.querySelector('#showResponse').innerText = `${info[i].name} + ${info[i].PhoneNumber} + ${info[i].Address} + ${info[i].Website}`
-    if (i === 5) {
-      break;
-    }
+  let showResponseElement = document.querySelector('#showResponse');
+  showResponseElement.innerText = ''; // Clear the content before appending
+  for (let i = 0; i < 5; i++) {
+    showResponseElement.innerText += `${info[i].name} + ${info[i].PhoneNumber} + ${info[i].Address.addressLine} + ${info[i].Website}\n`;
   }
 }
 

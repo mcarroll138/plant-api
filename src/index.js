@@ -5,58 +5,51 @@ import MapSearch from './postalCodeAPI.js';
 function postalCodeSearch(city, zipcode) {
   let promise = MapSearch.postalCodeSearch(city, zipcode);
   promise.then(function (getLonLat) {
-    printElements(getLonLat, city, zipcode);
-    nurserySearchTwo(getLonLat.resourceSets[0].resources[0].point.coordinates);
-    console.log(postalCodeSearch);
+    // printElements(getLonLat, city, zipcode);
+    const coordArray = getLonLat.resourceSets[0].resources[0].point.coordinates
+    console.log(coordArray);
+    const coordString = coordArray.join(', ');
+    console.log(coordString);
+    nurserySearchTwo(coordString);
   }, function (errorArray) {
-    printError(errorArray);
+    printMapError(errorArray);
   });
 }
 
-// let promise = fetch(url, [options])
-// let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
-// let response = await fetch(url);
 
-// let commits = await response.json(); // read response body and parse as JSON
 
-// alert(commits[0].author.login);
-
-function nurserySearchTwo(userLocation) {
-  const url = `https://dev.virtualearth.net/REST/v1/LocalSearch/?query=nursery&userLocation=${userLocation}&key=${process.env.BING_KEY}`;
-  const apiResponse = fetch(url);
-  const website2 = apiResponse.resourceSets[0].resources[0].Website;
-  console.log(website2)
+function nurserySearchTwo(coordString) {
+  let promise = MapSearch.nurserySearchTwo(coordString);
+  promise.then(function (info) {
+    console.log(info.resourceSets[0]);
+    printElements(info.resourceSets[0].resources);
+  }, function (errorArray) {
+    printMapError(errorArray);
+  });
 }
 
-// function nurserySearch(userLocation) {
-//   const url = `https://dev.virtualearth.net/REST/v1/LocalSearch/?query=nursery&userLocation=${userLocation}&key=${process.env.BING_KEY}`;
-//   fetch(url)
-//     .then(response => response.json())
-//     .then(data => {
-//       const website1 = apiResponse.resourceSets[0].resources[0].Website;
-//       console.log(website1);
-//       // Handle the response data from the nursery search API request
-//       console.log("Searched parameters:");
-//       console.log("User Location:", userLocation);
-//       console.log("Response Data:", data);
-//       // Further processing or manipulation of the response data
-//       // ...
-//     })
-//     .catch(error => {
-//       // Handle the error from the nursery search API request
-//       console.error(error);
-//     });
-// }
 
-function printError(apiResponse) {
+function printMapError(apiResponse) {
   document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.statusDescription} with ${apiResponse.errorDetails}`;
 }
 
-function printElements(apiResponse, city, zipcode) {
-  const userLocation = apiResponse.resourceSets[0].resources[0].point.coordinates;
-  document.querySelector('#showResponse').innerText = `Your coordinates for ${city} with the zip code of ${zipcode}, is ${apiResponse.resourceSets[0].resources[0].point.coordinates}`;
-
-  console.log(userLocation);
+function printElements(info) {
+  console.log(info);
+  let showResponseElement = document.querySelector('#showResponse');
+  showResponseElement.innerHTML = ''; // Clear the content before appending
+  for (let i = 0; i < 5; i++) {
+    const websiteLink = `<a href="${info[i].Website}" target="_blank">${info[i].Website}</a>`;
+    showResponseElement.innerHTML += `
+      
+      <h1>${info[i].name}<h1>
+      <ul>
+        <li>Phone number: ${info[i].PhoneNumber}</li>
+        <li>Buisness Address: ${info[i].Address.addressLine}</li>
+        <li>Website: ${websiteLink}</li>
+      </ul>
+      <br>
+    `;
+  }
 }
 
 function handleFormSubmission(event) {
@@ -70,8 +63,7 @@ function handleFormSubmission(event) {
 }
 
 window.addEventListener("load", function () {
-  document.querySelector('form').addEventListener("submit", handleFormSubmission);
+  document.querySelector('#nurserySearch').addEventListener("submit", handleFormSubmission);
 });
 
 
-// let promise = fetch(url, [options])

@@ -8,7 +8,6 @@ function postalCodeSearch(city, zipcode) {
     printElements(getLonLat, city, zipcode);
     nurserySearchTwo(getLonLat.resourceSets[0].resources[0].point.coordinates);
     console.log(postalCodeSearch);
-    console.log(userLocation);
   }, function (errorArray) {
     printError(errorArray);
   });
@@ -26,8 +25,7 @@ function nurserySearchTwo(userLocation) {
   const url = `https://dev.virtualearth.net/REST/v1/LocalSearch/?query=nursery&userLocation=${userLocation}&key=${process.env.BING_KEY}`;
   const apiResponse = fetch(url);
   const website2 = apiResponse.resourceSets[0].resources[0].Website;
-  console.log(website2);
-  alert(website2)(apiResponse);
+  console.log(website2)
 }
 
 // function nurserySearch(userLocation) {
@@ -56,7 +54,7 @@ function printError(apiResponse) {
 
 function printElements(apiResponse, city, zipcode) {
   const userLocation = apiResponse.resourceSets[0].resources[0].point.coordinates;
-  document.querySelector('#showResponse').innerText = `Your coordinates for ${city} with ${website2} the zip code of ${zipcode}, is ${apiResponse.resourceSets[0].resources[0].point.coordinates}`;
+  document.querySelector('#showResponse').innerText = `Your coordinates for ${city} with the zip code of ${zipcode}, is ${apiResponse.resourceSets[0].resources[0].point.coordinates}`;
 
   console.log(userLocation);
 }

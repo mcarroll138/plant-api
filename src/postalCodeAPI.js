@@ -15,4 +15,20 @@ export default class MapSearch {
       request.send();
     });
   }
+  static nurserySearchTwo(userLocation) {
+    return new Promise(function (resolve, reject) {
+      let request = new XMLHttpRequest();
+      const url = `https://dev.virtualearth.net/REST/v1/LocalSearch/?query=nursery&userLocation=${userLocation}&key=${process.env.BING_KEY}`;
+      request.addEventListener("loadend", function () {
+        const response = JSON.parse(this.responseText);
+        if (this.status === 200) {
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      });
+      request.open("GET", url, true);
+      request.send();
+    });
+  }
 }

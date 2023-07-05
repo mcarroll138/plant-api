@@ -5,9 +5,12 @@ import MapSearch from './postalCodeAPI.js';
 function postalCodeSearch(city, zipcode) {
   let promise = MapSearch.postalCodeSearch(city, zipcode);
   promise.then(function (getLonLat) {
-    printElements(getLonLat, city, zipcode);
-    nurserySearchTwo(getLonLat.resourceSets[0].resources[0].point.coordinates);
-    console.log(postalCodeSearch);
+    // printElements(getLonLat, city, zipcode);
+    const coordArray = getLonLat.resourceSets[0].resources[0].point.coordinates
+    console.log(coordArray);
+    const coordString = coordArray.join(', ');
+    console.log(coordString);
+    nurserySearchTwo(coordString);
   }, function (errorArray) {
     printError(errorArray);
   });
@@ -21,12 +24,28 @@ function postalCodeSearch(city, zipcode) {
 
 // alert(commits[0].author.login);
 
-function nurserySearchTwo(userLocation) {
-  const url = `https://dev.virtualearth.net/REST/v1/LocalSearch/?query=nursery&userLocation=${userLocation}&key=${process.env.BING_KEY}`;
-  const apiResponse = fetch(url);
-  const website2 = apiResponse.resourceSets[0].resources[0].Website;
-  console.log(website2)
+function nurserySearchTwo(coordString) {
+  let promise = MapSearch.nurserySearchTwo(coordString);
+  promise.then(function (info) {
+    console.log(info.resourceSets[0].resources);
+    for (let i = 0; i < info.resourceSets[0].resources.length; i++) {
+      printElements(info.resourceSets[0].resources[i].name + info.resourceSets[0].resources[i].PhoneNumber + info.resourceSets[0].resources[i].Address + info.resourceSets[0].resources[i].Website)
+      if (i === 5) {
+        break;
+      }
+    }
+  }, function (errorArray) {
+    printError(errorArray);
+  });
 }
+
+// function nurserySearchTwo(userLocation) {
+//   const url = `https://dev.virtualearth.net/REST/v1/LocalSearch/?query=nursery&userLocation=${userLocation}&key=${process.env.BING_KEY}`;
+//   const apiResponse = fetch(url);
+//   console.log(apiResponse);
+//   // const website2 = apiResponse.resourceSets[0].resources[0].point.coordinates;
+//   // console.log(website2)
+// }
 
 // function nurserySearch(userLocation) {
 //   const url = `https://dev.virtualearth.net/REST/v1/LocalSearch/?query=nursery&userLocation=${userLocation}&key=${process.env.BING_KEY}`;

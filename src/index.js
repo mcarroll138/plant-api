@@ -12,7 +12,7 @@ function postalCodeSearch(city, zipcode) {
     console.log(coordString);
     nurserySearchTwo(coordString);
   }, function (errorArray) {
-    printError(errorArray);
+    printMapError(errorArray);
   });
 }
 
@@ -24,21 +24,31 @@ function nurserySearchTwo(coordString) {
     console.log(info.resourceSets[0]);
     printElements(info.resourceSets[0].resources);
   }, function (errorArray) {
-    printError(errorArray);
+    printMapError(errorArray);
   });
 }
 
 
-function printError(apiResponse) {
+function printMapError(apiResponse) {
   document.querySelector('#showResponse').innerText = `We were unable to get your conversion due to an ${apiResponse.statusDescription} with ${apiResponse.errorDetails}`;
 }
 
 function printElements(info) {
   console.log(info);
   let showResponseElement = document.querySelector('#showResponse');
-  showResponseElement.innerText = ''; // Clear the content before appending
+  showResponseElement.innerHTML = ''; // Clear the content before appending
   for (let i = 0; i < 5; i++) {
-    showResponseElement.innerText += `${info[i].name} + ${info[i].PhoneNumber} + ${info[i].Address.addressLine} + ${info[i].Website}\n`;
+    const websiteLink = `<a href="${info[i].Website}" target="_blank">${info[i].Website}</a>`;
+    showResponseElement.innerHTML += `
+      
+      <h1>${info[i].name}<h1>
+      <ul>
+        <li>Phone number: ${info[i].PhoneNumber}</li>
+        <li>Buisness Address: ${info[i].Address.addressLine}</li>
+        <li>Website: ${websiteLink}</li>
+      </ul>
+      <br>
+    `;
   }
 }
 
@@ -53,7 +63,7 @@ function handleFormSubmission(event) {
 }
 
 window.addEventListener("load", function () {
-  document.querySelector('form').addEventListener("submit", handleFormSubmission);
+  document.querySelector('#nurserySearch').addEventListener("submit", handleFormSubmission);
 });
 
 

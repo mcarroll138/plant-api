@@ -1,8 +1,8 @@
-# **Currency Exchanger**
+# **Plant Search Test**
 
 ### By Michael Carroll
 
-A webpage application where a user can enter the amount of USD to be converted to any of the supported currencies using an API call to exchangerate-api.com for the up to date exchange rate.
+A webpage application will
 
 Link to GH Page:
  
@@ -27,7 +27,7 @@ https://github.com/mcarroll138
 - Add .env file to .gitignore
 - commit changes prior to storing any keys
 - Create a free account to access an API token at exchangerate-api.com.
-- Add your token in your .env folder as API_KEY={YOUR API TOKEN}.
+- Add your token in your .env folder as BING_KEY={YOUR API TOKEN}.
 - Run $ npm run start in your root folder
 
 ## Known Bugs

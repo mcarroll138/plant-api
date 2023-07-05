@@ -26,7 +26,8 @@ body {
 }
 
 input {
-  width: 15%;
+  width: 50%;
+  align-items: start;
 }
 
 br {
